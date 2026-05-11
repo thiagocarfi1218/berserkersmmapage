@@ -1,0 +1,22 @@
+{
+  "entities": {
+    "Photo": {
+      "title": "Photo",
+      "description": "A photo uploaded to the gallery",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "description": "URL of the photo" },
+        "caption": { "type": "string", "description": "Optional caption for the photo" },
+        "uploadedBy": { "type": "string", "description": "User ID of who uploaded the photo" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["url", "uploadedBy", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/photos/{photoId}": {
+      "schema": "Photo",
+      "description": "Collection of gallery photos"
+    }
+  }
+}

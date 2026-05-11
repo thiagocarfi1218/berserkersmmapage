@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Anton&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Anton", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.watermark-bg {
+  position: relative;
+}
+
+.watermark-bg::before {
+  content: "BERSERKERS";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-family: "Anton", sans-serif;
+  font-size: 25vw;
+  color: white;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+  letter-spacing: -0.05em;
+}
