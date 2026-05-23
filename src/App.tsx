@@ -36,7 +36,6 @@ const NAVBAR_LINKS = [
 ];
 
 export default function App() {
-  const [activeCategory, setActiveCategory] = useState("Adults");
   const [activeSection, setActiveSection] = useState("Coaches");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -66,7 +65,7 @@ export default function App() {
     Youth: [
       { 
         tier: "Youth Program", 
-        price: "125", 
+        price: "150", 
         period: "/MO",
         features: ["Month-to-Month Contract", "Youth Specialized Training", "Disciplines: BJJ & Striking", "Confidence & Discipline Building", "Safe Training Environment"], 
         cta: "Enroll Youth",
@@ -582,52 +581,82 @@ export default function App() {
       )}
 
       {activeSection === "Pricing" && (
-          <section id="pricing" className="py-24 md:py-40 bg-zinc-950 border-b border-zinc-800 relative overflow-hidden min-h-[70vh]">
-          <div className="absolute left-0 bottom-0 text-[20rem] font-display text-white/[0.01] pointer-events-none select-none -rotate-90 origin-bottom-left">COST</div>
+        <section id="pricing" className="py-24 md:py-40 bg-zinc-950 border-b border-zinc-800 relative overflow-hidden min-h-[70vh]">
+          <div className="absolute left-0 bottom-0 text-[15rem] font-display text-white/[0.01] pointer-events-none select-none -rotate-90 origin-bottom-left">COST</div>
           <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
               <div>
-                <h2 className="text-4xl md:text-8xl font-black uppercase italic mb-4 tracking-tighter border-l-8 border-white pl-8">
+                <h2 className="text-5xl sm:text-7xl md:text-[8rem] font-black uppercase italic mb-4 tracking-tighter border-l-8 border-white pl-8 leading-[0.85]">
                   Choose Your <span className="text-rose-600 italic">Trial</span>
                 </h2>
                 <p className="text-zinc-500 font-bold uppercase tracking-widest italic ml-10">No Contracts. No Bullshit. Just Commitment.</p>
               </div>
             </div>
 
-            {/* Category Toggle */}
-            <div className="flex flex-wrap gap-4 mb-20 justify-center">
-              {Object.keys(pricingData).map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-8 py-4 font-black uppercase italic tracking-tighter skew-x-[-12deg] transition-all border-2 md:border-4 ${activeCategory === cat ? 'bg-rose-600 border-rose-600 text-white translate-y-[-4px] shadow-[0_10px_0_0_rgba(159,18,57,0.3)]' : 'bg-transparent border-zinc-800 text-zinc-500 hover:border-zinc-500'}`}
+            <div className="space-y-24 max-w-6xl mx-auto mt-16">
+              {Object.entries(pricingData).map(([category, plans]) => (
+                <div 
+                  key={category} 
+                  id={`pricing-cat-${category.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="space-y-8 scroll-mt-28"
                 >
-                  <span className="inline-block skew-x-[12deg]">{cat}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
-              {pricingData[activeCategory].map((plan, i) => (
-                <div key={i} className={`relative p-8 md:p-12 border-4 ${plan.recommended ? 'border-rose-600 bg-zinc-900 shadow-2xl scale-105 z-20' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-500'} transition-all group flex flex-col`}>
-                  {plan.recommended && (
-                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-rose-600 text-white px-6 py-2 font-black uppercase italic tracking-widest text-xs skew-x-[-12deg]">
-                      <span className="inline-block skew-x-[12deg]">Most Efficient</span>
-                    </div>
-                  )}
-                  <h3 className="text-3xl font-black uppercase italic tracking-tighter mb-2">{plan.tier}</h3>
-                  <div className="flex items-baseline gap-2 mb-10">
-                    <span className="text-6xl font-display text-white italic tracking-tighter">${plan.price}</span>
-                    <span className="text-zinc-500 font-black uppercase text-xs tracking-widest">{plan.period}</span>
+                  {/* Category Header in absolute GIANT letters */}
+                  <div className="relative overflow-hidden mb-8">
+                    <h3 className="text-4xl sm:text-6xl md:text-[6rem] font-black uppercase italic text-rose-600 tracking-tighter leading-none select-none">
+                      // {category}
+                    </h3>
+                    <div className="h-1 bg-zinc-800 mt-4 w-full"></div>
                   </div>
-                  <ul className="space-y-6 mb-12 flex-grow">
-                    {plan.features.map((f: string, fi: number) => (
-                      <li key={fi} className="flex gap-4 items-start text-zinc-400 font-bold uppercase italic text-xs tracking-tight">
-                        <span className="text-rose-600 font-black">//</span>
-                        <span>{f}</span>
-                      </li>
+
+                  <div className="space-y-6">
+                    {plans.map((plan, i) => (
+                      <div 
+                        key={i} 
+                        className={`relative p-6 md:p-10 border-4 ${plan.recommended ? 'border-rose-600 bg-zinc-900 shadow-2xl' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-500'} transition-all group flex flex-col lg:flex-row lg:items-center justify-between gap-6 md:gap-8`}
+                      >
+                        {plan.recommended && (
+                          <div className="absolute -top-6 left-6 md:left-10 bg-rose-600 text-white px-4 py-1.5 font-black uppercase italic tracking-widest text-[10px] md:text-xs skew-x-[-12deg] z-10">
+                            <span className="inline-block skew-x-[12deg]">Most Efficient</span>
+                          </div>
+                        )}
+                        
+                        {/* Tier Title of Plan in Big Letters */}
+                        <div className="flex-1 min-w-[250px] space-y-2">
+                          <h4 className="text-2xl sm:text-3xl md:text-5xl font-extrabold uppercase italic tracking-tighter text-white">
+                            {plan.tier}
+                          </h4>
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-4xl sm:text-5xl md:text-7xl font-display text-rose-500 italic tracking-tighter">${plan.price}</span>
+                            <span className="text-zinc-500 font-black uppercase text-[10px] md:text-xs tracking-widest">{plan.period}</span>
+                          </div>
+                        </div>
+
+                        {/* Features List */}
+                        <div className="flex-[1.5] min-w-[280px]">
+                          <ul className="grid sm:grid-cols-2 gap-3">
+                            {plan.features.map((f: string, fi: number) => (
+                              <li key={fi} className="flex gap-2.5 items-start text-zinc-400 font-bold uppercase italic text-[10px] md:text-xs tracking-tight">
+                                <span className="text-rose-600 font-black flex-shrink-0">//</span>
+                                <span>{f}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* CTA button inside skew container */}
+                        <div className="flex-shrink-0">
+                          <button 
+                            onClick={() => {
+                              window.location.href = "https://berserkers-mma-390047829708.us-west1.run.app";
+                            }}
+                            className="w-full lg:w-auto bg-white text-zinc-950 hover:bg-rose-600 hover:text-white px-6 py-3 md:px-8 md:py-4 font-black uppercase italic tracking-tighter skew-x-[-12deg] transition-all text-xs md:text-sm"
+                          >
+                            <span className="inline-block skew-x-[12deg]">{plan.cta}</span>
+                          </button>
+                        </div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </div>
