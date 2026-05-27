@@ -35,6 +35,27 @@ const NAVBAR_LINKS = [
   { name: "Visit", href: "#visit" },
 ];
 
+function JoinBanner() {
+  return (
+    <div className="bg-zinc-950/95 border-2 border-rose-600/30 p-4 md:py-5 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 w-full select-none mb-4 shadow-[0_4px_20px_rgba(225,29,72,0.15)] rounded-none">
+      <div className="flex items-center gap-3 text-center sm:text-left">
+        <div className="w-2 h-7 bg-rose-600 hidden sm:block"></div>
+        <p className="text-sm md:text-base font-black uppercase italic tracking-wider text-white">
+          TO JOIN, <span className="text-rose-500 underline decoration-2 underline-offset-4">GET OUR APP</span>.
+        </p>
+      </div>
+      <button 
+        onClick={() => {
+          window.location.href = "https://berserkers-mma-390047829708.us-west1.run.app";
+        }}
+        className="w-full sm:w-auto bg-rose-600 hover:bg-white hover:text-zinc-950 text-white font-black uppercase italic tracking-tighter skew-x-[-12deg] transition-all text-xs md:text-sm px-8 py-3 duration-300 shadow-[0_4px_12px_rgba(225,29,72,0.3)] hover:shadow-none"
+      >
+        <span className="inline-block skew-x-[12deg]">Get the app.</span>
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
   const [activeSection, setActiveSection] = useState("Coaches");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,11 +67,43 @@ export default function App() {
   const pricingData: Record<string, any[]> = {
     Adults: [
       { 
+        tier: "Adults Grappling Only", 
+        price: "100", 
+        originalPrice: "175",
+        specialOfferText: "LIMITED TIME: $100/MO",
+        period: "/MO",
+        features: [
+          "SPECIAL: $100/MO (Save $75 a month!)",
+          "Adults grappling only",
+          "All Jiu-Jitsu classes",
+          "All wrestling classes",
+          "Month-to-Month Contract"
+        ], 
+        cta: "Enroll Grappling",
+        recommended: true 
+      },
+      { 
         tier: "Standard Membership", 
         price: "175", 
         period: "/MO",
         features: ["Month-to-Month Contract", "Unlimited MMA Access", "BJJ, Boxing", "Access to Open Mat"], 
         cta: "Join The Adults",
+        recommended: true 
+      },
+      { 
+        tier: "3-Month All-Access", 
+        price: "450", 
+        originalPrice: "525",
+        specialOfferText: "3-MONTH COMMITMENT: SAVE $75",
+        period: "/3 MOS",
+        features: [
+          "SPECIAL: $450 Paid In Full (Saves $75!)",
+          "3-Month Commitment",
+          "Unlimited MMA Access",
+          "BJJ, Wrestling & Boxing",
+          "Access to Open Mat"
+        ], 
+        cta: "Enroll All-Access",
         recommended: true 
       },
       { 
@@ -65,9 +118,18 @@ export default function App() {
     Youth: [
       { 
         tier: "Youth Program", 
-        price: "150", 
+        price: "100", 
+        originalPrice: "150",
+        specialOfferText: "LIMITED TIME: $100/MO",
         period: "/MO",
-        features: ["Month-to-Month Contract", "Youth Specialized Training", "Disciplines: BJJ & Striking", "Confidence & Discipline Building", "Safe Training Environment"], 
+        features: [
+          "SPECIAL: $100/MO (Save $50/mo!)",
+          "Month-to-Month Contract",
+          "Youth Specialized Training",
+          "Disciplines: BJJ & Striking",
+          "Confidence & Discipline Building",
+          "Safe Training Environment"
+        ], 
         cta: "Enroll Youth",
         recommended: true 
       }
@@ -106,6 +168,10 @@ export default function App() {
     <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-rose-600 selection:text-white overflow-x-hidden md:border-8 border-4 border-rose-600 watermark-bg">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-md border-b border-zinc-800 md:mx-2 md:mt-2">
+        {/* Top announcement bar */}
+        <div className="bg-rose-600 text-white font-black uppercase italic tracking-widest text-center py-2 text-[10px] md:text-xs select-none">
+          To sign up, get our app.
+        </div>
         <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 md:h-24 flex items-center justify-between">
           <div className="flex flex-col">
             <div className="text-xl md:text-3xl font-display tracking-tighter flex items-center gap-2">
@@ -186,7 +252,10 @@ export default function App() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent z-[1]" />
               
-              <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+              <div className="relative z-10 max-w-7xl mx-auto px-6 text-center w-full flex flex-col items-center pt-24 md:pt-32 pb-8 md:pb-12">
+                <div className="w-full mb-8 max-w-4xl">
+                  <JoinBanner />
+                </div>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -275,6 +344,9 @@ export default function App() {
         {activeSection === "Benefits" && (
           <section id="benefits" className="py-20 md:py-40 bg-zinc-900/20 border-b border-zinc-800 min-h-[70vh]">
           <div className="max-w-7xl mx-auto px-6 md:px-8 text-center sm:text-left">
+            <div className="mb-12">
+              <JoinBanner />
+            </div>
             <h2 className="text-lg md:text-xl font-black uppercase italic mb-12 md:mb-16 flex items-center justify-center sm:justify-start gap-4">
               <span className="text-rose-600 text-3xl md:text-5xl font-display tracking-tighter italic">//</span> Why Train With Us?
             </h2>
@@ -318,6 +390,9 @@ export default function App() {
       {activeSection === "Programs" && (
           <section id="programs" className="py-24 md:py-40 bg-zinc-950 border-b border-zinc-800 min-h-[70vh]">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <div className="mb-12">
+              <JoinBanner />
+            </div>
             <h2 className="text-4xl md:text-8xl font-black uppercase italic mb-16 md:mb-24 tracking-tighter italic border-l-8 border-rose-600 pl-8">The Arsenal</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800 border border-zinc-800">
               {[
@@ -366,6 +441,9 @@ export default function App() {
       {activeSection === "Schedule" && (
           <section id="schedule" className="py-40 bg-zinc-950 border-b border-zinc-800 min-h-[70vh]">
           <div className="max-w-7xl mx-auto px-8">
+            <div className="mb-12">
+              <JoinBanner />
+            </div>
             <h2 className="text-5xl font-black uppercase italic mb-20 tracking-tighter italic border-l-8 border-rose-600 pl-8">Class Schedule</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {[
@@ -438,6 +516,9 @@ export default function App() {
           <section id="accomplishments" className="py-40 bg-zinc-900/10 border-b border-zinc-800 relative overflow-hidden min-h-[70vh]">
           <div className="absolute right-0 top-0 text-[30rem] font-display text-white/[0.01] pointer-events-none select-none">GOLD</div>
           <div className="max-w-7xl mx-auto px-8 relative z-10">
+            <div className="mb-12">
+              <JoinBanner />
+            </div>
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
               <div>
                 <h2 className="text-5xl md:text-9xl font-display uppercase leading-none tracking-tighter">Gold <br /><span className="text-rose-600 italic">& Glory</span></h2>
@@ -584,6 +665,9 @@ export default function App() {
         <section id="pricing" className="py-24 md:py-40 bg-zinc-950 border-b border-zinc-800 relative overflow-hidden min-h-[70vh]">
           <div className="absolute left-0 bottom-0 text-[15rem] font-display text-white/[0.01] pointer-events-none select-none -rotate-90 origin-bottom-left">COST</div>
           <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+            <div className="mb-12">
+              <JoinBanner />
+            </div>
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
               <div>
                 <h2 className="text-5xl sm:text-7xl md:text-[8rem] font-black uppercase italic mb-4 tracking-tighter border-l-8 border-white pl-8 leading-[0.85]">
@@ -612,13 +696,23 @@ export default function App() {
                     {plans.map((plan, i) => (
                       <div 
                         key={i} 
-                        className={`relative p-6 md:p-10 border-4 ${plan.recommended ? 'border-rose-600 bg-zinc-900 shadow-2xl' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-500'} transition-all group flex flex-col lg:flex-row lg:items-center justify-between gap-6 md:gap-8`}
+                        className={`relative p-6 md:p-10 border-4 ${
+                          plan.specialOfferText 
+                            ? 'border-amber-500 bg-zinc-900/90 shadow-[0_0_30px_rgba(245,158,11,0.25)]' 
+                            : plan.recommended 
+                            ? 'border-rose-600 bg-zinc-900 shadow-2xl' 
+                            : 'border-zinc-800 bg-zinc-950 hover:border-zinc-500'
+                        } transition-all group flex flex-col lg:flex-row lg:items-center justify-between gap-6 md:gap-8`}
                       >
-                        {plan.recommended && (
+                        {plan.specialOfferText ? (
+                          <div className="absolute -top-6 left-6 md:left-10 bg-amber-500 text-black px-4 py-1.5 font-black uppercase italic tracking-widest text-[10px] md:text-xs skew-x-[-12deg] z-10 animate-pulse border-2 border-white">
+                            <span className="inline-block skew-x-[12deg]">{plan.specialOfferText}</span>
+                          </div>
+                        ) : plan.recommended ? (
                           <div className="absolute -top-6 left-6 md:left-10 bg-rose-600 text-white px-4 py-1.5 font-black uppercase italic tracking-widest text-[10px] md:text-xs skew-x-[-12deg] z-10">
                             <span className="inline-block skew-x-[12deg]">Most Efficient</span>
                           </div>
-                        )}
+                        ) : null}
                         
                         {/* Tier Title of Plan in Big Letters */}
                         <div className="flex-1 min-w-[250px] space-y-2">
@@ -626,6 +720,11 @@ export default function App() {
                             {plan.tier}
                           </h4>
                           <div className="flex items-baseline gap-2">
+                            {plan.originalPrice && (
+                              <div className="relative inline-flex items-center">
+                                <span className="text-xl sm:text-2xl md:text-4xl font-display text-zinc-500 line-through italic tracking-tighter mr-3">${plan.originalPrice}</span>
+                              </div>
+                            )}
                             <span className="text-4xl sm:text-5xl md:text-7xl font-display text-rose-500 italic tracking-tighter">${plan.price}</span>
                             <span className="text-zinc-500 font-black uppercase text-[10px] md:text-xs tracking-widest">{plan.period}</span>
                           </div>
@@ -642,18 +741,6 @@ export default function App() {
                             ))}
                           </ul>
                         </div>
-
-                        {/* CTA button inside skew container */}
-                        <div className="flex-shrink-0">
-                          <button 
-                            onClick={() => {
-                              window.location.href = "https://berserkers-mma-390047829708.us-west1.run.app";
-                            }}
-                            className="w-full lg:w-auto bg-white text-zinc-950 hover:bg-rose-600 hover:text-white px-6 py-3 md:px-8 md:py-4 font-black uppercase italic tracking-tighter skew-x-[-12deg] transition-all text-xs md:text-sm"
-                          >
-                            <span className="inline-block skew-x-[12deg]">{plan.cta}</span>
-                          </button>
-                        </div>
                       </div>
                     ))}
                   </div>
@@ -666,13 +753,20 @@ export default function App() {
 
       {activeSection === "Gallery" && (
           <div className="min-h-[70vh]">
-            <PhotoGallery />
+            <PhotoGallery>
+              <div className="mb-12">
+                <JoinBanner />
+              </div>
+            </PhotoGallery>
           </div>
         )}
 
         {activeSection === "FAQ" && (
           <section id="faq" className="py-24 md:py-40 bg-zinc-900/5 border-b border-zinc-800 min-h-[70vh]">
           <div className="max-w-4xl mx-auto px-6 md:px-8">
+            <div className="mb-12">
+              <JoinBanner />
+            </div>
             <h2 className="text-4xl md:text-8xl font-black uppercase italic mb-16 md:mb-24 tracking-tighter border-l-8 border-rose-600 pl-8">
               Intelligence <span className="text-rose-600 italic">Report</span>
             </h2>
@@ -712,6 +806,9 @@ export default function App() {
       {activeSection === "Visit" && (
           <section id="visit" className="py-20 md:py-40 bg-zinc-950 min-h-[70vh]">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <div className="mb-12">
+              <JoinBanner />
+            </div>
             <div className="max-w-4xl mx-auto">
               <div>
                 <h2 className="text-6xl md:text-8xl font-black uppercase italic mb-16 md:mb-24 tracking-tighter text-center">Enter<br /><span className="text-rose-600">The Dojo</span></h2>
@@ -779,9 +876,17 @@ export default function App() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 w-full md:w-auto">
-             <div className="text-right">
-                <p className="text-sm italic font-black uppercase text-zinc-400 tracking-widest">Stop Waiting. Start Fighting.</p>
+             <div className="text-center md:text-right">
+                <p className="text-sm italic font-black uppercase text-zinc-400 tracking-widest leading-relaxed">Stop Waiting. Start Fighting.</p>
              </div>
+             <button
+               onClick={() => {
+                 window.location.href = "https://berserkers-mma-390047829708.us-west1.run.app";
+               }}
+               className="w-full md:w-auto bg-rose-600 hover:bg-zinc-950 text-white border-2 border-rose-600 hover:border-zinc-950 px-8 py-4 font-black uppercase italic tracking-tighter skew-x-[-12deg] transition-all text-xs md:text-sm select-none"
+             >
+               <span className="inline-block skew-x-[12deg]">Get the app.</span>
+             </button>
           </div>
         </div>
         <div className="mt-20 pt-8 border-t border-zinc-100 flex justify-center">

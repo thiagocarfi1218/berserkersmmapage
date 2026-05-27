@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { 
   db, 
   auth, 
@@ -55,7 +55,7 @@ interface Photo {
   createdAt: any;
 }
 
-export default function PhotoGallery() {
+export default function PhotoGallery({ children }: { children?: ReactNode }) {
   const [photos, setPhotos] = useState<Photo[]>([]);
 
   useEffect(() => {
@@ -78,6 +78,7 @@ export default function PhotoGallery() {
   return (
     <section id="gallery" className="py-24 md:py-40 bg-zinc-950 border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
+        {children}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
           <div>
             <h2 className="text-4xl md:text-8xl font-black uppercase italic mb-4 tracking-tighter border-l-8 border-rose-600 pl-8">
